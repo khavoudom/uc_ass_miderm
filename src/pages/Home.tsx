@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { products, type Product } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
@@ -8,6 +9,7 @@ const categories = ['All', 'Tech', 'Apparel', 'Books'];
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const navigate = useNavigate();
 
   const filteredProducts = activeCategory === 'All' 
     ? products 
@@ -25,8 +27,18 @@ export default function Home() {
             Discover the latest in premium tech, apparel, and curated books. Quality craftsmanship for the modern individual.
           </p>
           <div className="flex gap-4 pt-4">
-            <button className="bg-(--accent) text-white border-none py-3 px-5 rounded-(--r-sm) font-semibold transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#1D4ED8] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)]">Shop Now</button>
-            <button className="bg-(--surface) text-(--text) border border-(--border-strong) py-3 px-5 rounded-(--r-sm) hover:bg-(--surface2) hover:-translate-y-px transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]">Explore Styles</button>
+            <button 
+              onClick={() => navigate('/shop')}
+              className="bg-(--accent) text-white border-none py-3 px-5 rounded-(--r-sm) font-semibold transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#1D4ED8] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)]"
+            >
+              Shop Now
+            </button>
+            <button 
+              onClick={() => navigate('/shop')}
+              className="bg-(--surface) text-(--text) border border-(--border-strong) py-3 px-5 rounded-(--r-sm) hover:bg-(--surface2) hover:-translate-y-px transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]"
+            >
+              Explore Styles
+            </button>
           </div>
           <div className="flex gap-6 pt-8 text-sm font-medium text-(--text-2)">
             <div className="flex flex-col">
@@ -54,7 +66,12 @@ export default function Home() {
               <div className="font-bold">MacBook Pro M2 14"</div>
               <div className="text-sm text-(--text-2)">The power of Pro</div>
             </div>
-            <button className="bg-(--accent) text-white border-none py-2 px-4 rounded-(--r-sm) font-semibold text-sm transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#1D4ED8] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)]">View</button>
+            <button 
+              onClick={() => setSelectedProduct(products.find(p => p.id === 15) || null)}
+              className="bg-(--accent) text-white border-none py-2 px-4 rounded-(--r-sm) font-semibold text-sm transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#1D4ED8] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)]"
+            >
+              View
+            </button>
           </div>
         </div>
       </section>
@@ -92,7 +109,10 @@ export default function Home() {
           <h2 className="font-display text-3xl font-bold">Spring Refresh Event</h2>
           <p className="text-white/90">Get up to 30% off selected living room furniture.</p>
         </div>
-        <button className="bg-white text-(--accent) font-bold border-none rounded-(--r-sm) py-2.5 px-5 cursor-pointer relative z-10 shadow-lg hover:scale-105 transition-transform">
+        <button 
+          onClick={() => navigate('/shop?sale=true')}
+          className="bg-white text-(--accent) font-bold border-none rounded-(--r-sm) py-2.5 px-5 cursor-pointer relative z-10 shadow-lg hover:scale-105 transition-transform"
+        >
           Shop the Sale
         </button>
       </section>
